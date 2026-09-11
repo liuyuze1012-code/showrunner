@@ -1,6 +1,6 @@
 ---
 name: space101-editing
-description: 太空101 ChatCut 剪辑与动画技能：品牌视觉系统（火星余烬橙三皮肤制）、十种标准动画件、零积分资源清单、模板路线图、设计风格库 ID。Trigger when Gavin edits 太空101/雏形 videos in ChatCut, builds motion graphics/templates/animations, applies the show brand or design styles, or asks about ChatCut credits/free resources. Use together with prototype-episode skill for full episode production.
+description: 太空101 ChatCut 剪辑与动画技能（**横版 16:9**）：品牌视觉系统（火星余烬橙三皮肤制）、十种标准动画件、零积分资源清单、模板路线图、设计风格库 ID。Trigger when Gavin edits 太空101/雏形 videos in ChatCut, builds motion graphics/templates/animations, applies the show brand or design styles, or asks about ChatCut credits/free resources. Use together with prototype-episode skill for full episode production.
 ---
 
 # 太空101 Video Editing — ChatCut 剪辑与动画手册
@@ -11,6 +11,14 @@ description: 太空101 ChatCut 剪辑与动画技能：品牌视觉系统（火�
 同步该副本（双端一致性责任在本文件持有者）。
 
 品牌视觉规范见本文件《品牌》节（共创中）；版式/管线见 FORMAT_6。
+
+## 画幅（2026-09-10 Gavin 定：横版）
+- **本技能面向横版 16:9（1920×1080）**——EP6 起太空101 以横版制作，优先使用 ChatCut
+  内面向横版的能力与模板。竖版 1080×1920 规格（气泡/卡/字幕几何）为 EP1-EP5 遗留，
+  见 prototype-episode/FORMAT_6，仅在明确要竖版发布时使用。
+- 横版布局基线（EP6 首集验证中，验证后固化数值）：主持人全屏为默认态；信息卡=居中
+  大面板（~1500w）或左右侧栏板；字幕底部居中单行；角标左上「雏形·太空101」；
+  十种动画件与三皮肤/单橙法则全部照用，只换画幅比例。
 
 ## 分工（不变的铁律）
 - **ChatCut**：AI 生成（扣积分）· A-roll+AI片段粗拼 · 内置效果/转场/缩放 · MG 代码动画 ·
