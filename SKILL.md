@@ -4,8 +4,11 @@ description: 太空101 ChatCut 剪辑与动画技能：品牌视觉系统（火�
 ---
 
 # 太空101 Video Editing — ChatCut 剪辑与动画手册
-2026-09-10 建立，2026-09-10 拆分为独立 skill。与 prototype-episode（选题/脚本/管线）配套使用；
+2026-09-10 建立并拆分为独立 skill。与 prototype-episode（选题/脚本/管线）配套使用；
 版式与本地管线规格在 prototype-episode/FORMAT_6。
+**ChatCut 账号内有同源副本**：Workflow Skill「太空101 剪辑规范」(id 904de3be…)，
+供 ChatCut 自带 Agent 使用。本文件改动后必须用 manage_skill update_from_directory
+同步该副本（双端一致性责任在本文件持有者）。
 
 品牌视觉规范见本文件《品牌》节（共创中）；版式/管线见 FORMAT_6。
 
