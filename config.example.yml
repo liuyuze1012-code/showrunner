@@ -1,0 +1,93 @@
+# Showrunner — show configuration
+#
+# Copy to config.local.yml and fill in. config.local.yml is gitignored:
+# keep account-scoped IDs and local machine paths there, never in the repo.
+#
+#   cp config.example.yml config.local.yml
+
+show:
+  name: "Your Show"                  # e.g. "太空101 / Space 101"
+  parent_brand: "Your Channel"       # umbrella IP, if the show is one of several
+  director: "Director"               # who holds approval authority at every gate
+  languages: [en]                    # content language(s); affects subtitle + ASR config
+  persona_line: ""                   # the show's one-sentence promise, spoken on-air
+                                     # e.g. "We don't sell anxiety. We show evidence."
+
+format:
+  aspect: "16:9"                     # 16:9 | 9:16
+  resolution: [3840, 2160]
+  fps: 30
+  target_duration_min: 9             # a stated duration is a FLOOR (see framework/01-gates.md)
+
+# ── Brand tokens ─────────────────────────────────────────────────────────
+# One accent color, enforced. See framework/04-visual-consistency.md.
+brand:
+  accent: "#E05A2B"
+  background_deep: "#081422"
+  text_primary: "#F5EFE8"
+  text_secondary: "#D9C6A8"
+  fonts:
+    display: "Playfair Display"      # large numerals
+    heading: "Noto Serif SC"
+    body: "LXGW WenKai TC"
+  # Card "skins": the brand layer stays constant, the card surface varies.
+  # Pick ONE per episode. See reference-impl/space101/brand.md.
+  skins:
+    - id: "lab-white"
+      label: "Cold lab white"
+      surface: "#EDF0F3"
+      use_for: "data-dense episodes"
+    - id: "deep-console"
+      label: "Deep-space console"
+      surface: "#141A22"
+      use_for: "immersive narrative episodes"
+    - id: "blueprint"
+      label: "Engineering blueprint"
+      surface: "#12263E"
+      use_for: "mechanism teardowns, flagship episodes"
+
+# ── Gates ────────────────────────────────────────────────────────────────
+# See framework/01-gates.md. Disabling a gate is a deliberate act.
+gates:
+  topic_selection: true
+  script: true
+  a_roll: true
+  animation_plan: true
+  generative_spend: true             # STRONGLY recommended: the cost gate
+  qc: true
+  # The recording, as delivered, is ground truth. Never request a re-record.
+  recording_is_ground_truth: true
+
+# ── Generative AI budget ─────────────────────────────────────────────────
+generation:
+  image_model: ""                    # e.g. gpt-image-2.5-flare
+  video_model: ""                    # e.g. seedance-2-5
+  max_video_concurrency: 3
+  per_episode_budget: ""             # state in credits or currency; enforced at the gate
+  retry_multiplier: 1.75             # budget for failed generations (1.5–2× is realistic)
+
+# ── Tooling ──────────────────────────────────────────────────────────────
+# Record VERIFIED values so the agent never re-discovers solved problems.
+tooling:
+  editor: ""                         # NLE / agent-drivable editor
+  ffmpeg: "ffmpeg"                   # use a build WITH libass + drawtext
+  asr: ""                            # e.g. whisper-cli -m <model path>
+  renderer: "chrome-headless"        # deterministic HTML -> frames
+
+# ── Account-scoped IDs — PUT REAL VALUES IN config.local.yml ONLY ────────
+# These are workspace internals. They are useless to anyone else and expose
+# your account structure. Find yours in your editor's style/template library.
+ids:
+  design_styles:
+    lab-white: "REPLACE_ME"
+    deep-console: "REPLACE_ME"
+    blueprint: "REPLACE_ME"
+  templates: {}
+
+# ── Compliance ───────────────────────────────────────────────────────────
+# See framework/05-compliance.md.
+compliance:
+  ai_disclosure_required: true       # platform-level "AI-generated content" declaration
+  ai_shot_chip: "AI-generated illustration"   # per-shot on-screen label
+  license_tiers: [green, amber, red] # clear / attribution-required / use-at-own-risk
+  source_manifest: "SOURCES.md"      # required per episode

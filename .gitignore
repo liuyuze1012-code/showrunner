@@ -1,0 +1,18 @@
+# Your private configuration — never commit account IDs or local paths
+config.local.yml
+config.local.yaml
+
+# Show working files
+work/
+out/
+renders/
+*.mp4
+*.mov
+*.wav
+*.mp3
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
