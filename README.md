@@ -23,13 +23,110 @@ in charge of a real show and three things go wrong at once:
 None of these are model-quality problems, so better prompts don't fix them.
 They are **process** problems. Showrunner is the process.
 
-## What this is
+## New here?
+
+**→ [GETTING-STARTED.md](GETTING-STARTED.md)** — a step-by-step guide that assumes
+no terminal, no coding, and no prior knowledge of AI agents. About 30 minutes
+to your first script.
+
+You do **not** need a technical pipeline to get value from this. See
+[the two tiers](#two-ways-to-use-it).
+
+## What it actually does
+
+Concretely, across one video, the agent:
+
+1. **Proposes topics** against a selection rubric, and stops for your pick
+2. **Researches and writes the script**, with a fact table — one verified
+   number per claim, each with its source
+3. **Delivers a clean voiceover file** — only the lines to read aloud, nothing else
+4. **Transcribes your recording and diffs it** against the approved script, so
+   a dropped fact is caught before editing, not after
+5. **Plans every graphic** as a table: *timecode → what triggered it → what
+   appears → which media* — approved before anything renders
+6. **Writes AI image prompts** from a locked template so the whole set looks
+   like one show, with a cost estimate, and generates nothing until you say yes
+7. **Tiers every piece of footage** by license and maintains a source manifest
+   with the attribution strings you'll need
+8. **Runs a QC checklist** — reading every on-screen number aloud, auditing
+   every cut for face flashes, probing the master for sync drift
+9. **Writes down what you corrected**, so it doesn't need correcting again
+
+In [Tier 2](#two-ways-to-use-it) it also drives the editor and renders. In
+Tier 1 it hands you all of the above and you edit by hand.
+
+## Is this for you?
+
+**Works well for:**
+
+| | Why |
+|---|---|
+| **Explainers and video essays** | Built from one. Argument structure is the backbone |
+| **News breakdowns and commentary** | Fast turnaround, heavy fact and attribution discipline |
+| **Interview and podcast cutdowns** | Selection-driven; the gates map cleanly onto rough-cut passes |
+| **Product reviews** | Criteria-locked, with disclosure as a blocking QC item |
+| **Tutorials** | Step-numbered, exact-string accuracy, executable verification |
+| **Documentary shorts** | Chapter structure and J-cut transitions |
+
+Full presets for each: **[`profiles/`](profiles/)**.
+
+The common thread: **scripted or semi-scripted, information-carrying, and
+part of a series.** Content where being *right* matters, where there are
+recurring visual decisions worth systematizing, and where the same mistakes
+would otherwise recur every episode.
+
+**Works poorly for:**
+
+| | Why |
+|---|---|
+| Vlogs and lifestyle | Unscripted. There's no script to gate, and the appeal is spontaneity |
+| Comedy sketch | Timing is performance, not content-triggered |
+| Music videos, narrative fiction | Driven by the edit's rhythm, not by what's being said |
+| Livestreams | No post-production stage to gate |
+| **One-off videos** | The system pays back over a series. For a single video it's overhead |
+| Personality-first content | If people watch for *you*, the systematized part isn't the bottleneck |
+
+**The honest test:** if you're making your first video, this is too much
+machinery. If you're making your tenth and keep re-deciding the same things —
+or keep giving an AI the same correction — that's exactly what this fixes.
+
+## Two ways to use it
+
+| | **Tier 1 · Director mode** | **Tier 2 · Full pipeline** |
+|---|---|---|
+| Agent does | Topics, script, voiceover, animation plan, prompts, QC checklist | All of that, plus driving the editor and rendering |
+| You do | Edit by hand in CapCut / Premiere / Resolve | Review and approve |
+| Needs | **Just Claude Code** | Agent-drivable editor, ffmpeg with `libass`, ASR, headless Chrome |
+| Setup | ~30 min | A few hours |
+
+**Start at Tier 1.** Most of the value here is editorial judgment, and none of
+it requires a pipeline.
+
+## Tailor it to your show
+
+The framework ships carrying one show's voice, which is almost certainly not
+yours. Fix that in one command:
+
+```
+Use the showrunner skill and run the tailoring interview to set up my show.
+```
+
+The agent interviews you — what you make, who watches, what your show promises,
+how much motion you want, what must never happen — then writes **your** config,
+**your** trigger table, **your** format spec and **your** brand tokens into a
+`my-show/` directory. All plain text, all editable, re-runnable whenever the
+show changes.
+
+Protocol: [`framework/00-tailor.md`](framework/00-tailor.md).
+
+## The five patterns
 
 Six specification documents an AI coding agent loads as operating
 instructions. They encode five transferable patterns:
 
 | | Pattern | Solves |
 |---|---|---|
+| **0** | [Tailoring](framework/00-tailor.md) | Fitting all of the below to *your* show, via an interview |
 | **1** | [Approval gates](framework/01-gates.md) | Where the agent must stop — including a **hard gate on generative spend** |
 | **2** | [Learning loop](framework/02-learning-loop.md) | Turning corrections into durable rules, without the agent overruling you |
 | **3** | [Trigger table](framework/03-trigger-table.md) | Editorial judgment as an executable decision table, with a default of *nothing* |
@@ -97,7 +194,9 @@ Deliberate exceptions are recorded rather than quietly executed, scoped to one
 episode, and carry an explicit prohibition on generalizing themselves. See
 [`02-learning-loop.md`](framework/02-learning-loop.md).
 
-## Quickstart
+## Quickstart (technical)
+
+*Non-technical? Use [GETTING-STARTED.md](GETTING-STARTED.md) instead.*
 
 ```bash
 git clone https://github.com/liuyuze1012-code/showrunner.git
@@ -107,23 +206,27 @@ cp config.example.yml config.local.yml   # gitignored — your IDs stay local
 
 Then:
 
-1. **Fill in `config.local.yml`** — brand tokens, format, budget, tool paths.
-2. **Install as an agent skill.** For Claude Code, symlink or copy into
+1. **Install as an agent skill.** For Claude Code, symlink or copy into
    `~/.claude/skills/showrunner/`. Any agent that loads Markdown instructions
    works — `SKILL.md` is the entry point and routes to the rest.
+2. **Run the tailoring interview** — it fills `config.local.yml` and generates
+   your `my-show/` directory:
+   ```
+   Use the showrunner skill and run the tailoring interview to set up my show.
+   ```
+   Prefer to do it by hand? Pick a preset from [`profiles/`](profiles/), copy
+   it into `my-show/trigger-table.md`, and edit `config.local.yml` directly.
 3. **Decide your gates.** Defaults are in `config.local.yml`. Disabling one
    should be a deliberate act.
-4. **Write your show skill.** Showrunner is deliberately show-agnostic; brand,
-   layout and components live alongside it. Start from
-   [`reference-impl/space101/`](reference-impl/space101/).
-5. **Run one episode and keep an inbox.** The first run generates the rules
-   the framework can't know for you.
+4. **Run one video and keep an inbox.** The first run generates the rules the
+   framework can't know for you.
 
 ### Adapting the trigger table
-Don't write it from aspiration. Go through work that got **rejected** — each
-rejection is a trigger you hadn't written down. Order rows by strength so the
-agent knows which wins when two fire. Include the *do-nothing* rows
-explicitly, or silence never gets chosen.
+The interview gives you a starting table. To improve it, don't write from
+aspiration — go through work that got **rejected**. Each rejection is a trigger
+you hadn't written down. Order rows by strength so the agent knows which wins
+when two fire, and include the *do-nothing* rows explicitly, or silence never
+gets chosen.
 
 ## Reference implementation
 

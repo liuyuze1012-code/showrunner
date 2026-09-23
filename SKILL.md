@@ -21,17 +21,30 @@ This skill is show-agnostic. Brand tokens, layout geometry and tool
 specifics belong in `config.local.yml` and in a companion show skill — see
 [`reference-impl/space101/`](reference-impl/space101/) for a worked example.
 
+**If no `my-show/` directory exists yet, offer to run the tailoring interview
+before anything else** ([`framework/00-tailor.md`](framework/00-tailor.md)).
+Running an untailored framework means imposing another show's editorial voice
+on this user — say so, and offer the ~10 minutes it takes to fix.
+
+**If the user is non-technical**, point them at
+[`GETTING-STARTED.md`](GETTING-STARTED.md) and default to **Tier 1**: you
+produce topics, script, voiceover, animation plan, prompts and the QC
+checklist; they edit by hand in their existing editor. Do not walk someone
+through installing a render pipeline they did not ask for.
+
 ## Read before deciding
 
 | When | Read |
 |---|---|
+| Setting up, or `my-show/` is missing | [`framework/00-tailor.md`](framework/00-tailor.md) — run the interview |
+| Picking a starting point for a genre | [`profiles/`](profiles/) — six presets |
 | Any run — first | [`framework/01-gates.md`](framework/01-gates.md) — where you must stop |
 | Choosing what goes on screen | [`framework/03-trigger-table.md`](framework/03-trigger-table.md) |
 | Generating or placing AI imagery | [`framework/04-visual-consistency.md`](framework/04-visual-consistency.md) |
 | Sourcing footage, or before delivery | [`framework/05-compliance.md`](framework/05-compliance.md) |
 | Before delivery | [`framework/06-qc.md`](framework/06-qc.md) |
 | Receiving a critique | [`framework/02-learning-loop.md`](framework/02-learning-loop.md) |
-| Show-specific brand, layout, components | the show skill + `config.local.yml` |
+| Show-specific brand, layout, components | `my-show/` + `config.local.yml` |
 
 ## The three rules that override convenience
 
